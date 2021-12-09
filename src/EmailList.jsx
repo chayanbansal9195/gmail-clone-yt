@@ -2,7 +2,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import RedoIcon from "@mui/icons-material/Redo";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Checkbox, IconButton } from "@mui/material";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./EmailList.css";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -13,8 +13,22 @@ import PeopleIcon from "@mui/icons-material/People";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import Section from "./Section";
 import EmailRow from "./EmailRow";
+import { db } from "./firebase";
 
 function EmailList() {
+  const [emails, setEmails] = useState([]);
+  useEffect(() => {
+    db.collection("emails")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) =>
+        setEmails(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
+      );
+  }, []);
   return (
     <div className="emailList">
       <div className="emailList_settings">
@@ -51,17 +65,93 @@ function EmailList() {
         <Section Icon={LocalOfferIcon} title="Promotions" color="green" />
       </div>
       <div className="emailList_List">
+        {emails.map(({ id, data: { to, subject, message, timestamp } }) => (
+          <EmailRow
+            id={id}
+            key={id}
+            title={to}
+            subject={subject}
+            description={message}
+            time={new Date(timestamp?.seconds * 1000).toLocaleString()}
+          />
+        ))}
         <EmailRow
-          title="Twitch"
-          subject="Hey fellow streamer!!!"
-          description="This is a test"
-          time="10pm"
+          title={"to"}
+          subject={"subject"}
+          description={"message"}
+          time="1pm"
         />
-         <EmailRow
-          title="Twitch"
-          subject="Hey fellow streamer!!!"
-          description="This is a test"
-          time="10pm"
+        <EmailRow
+          title={"to"}
+          subject={"subject"}
+          description={"message"}
+          time="1pm"
+        />
+        <EmailRow
+          title={"to"}
+          subject={"subject"}
+          description={"message"}
+          time="1pm"
+        />
+        <EmailRow
+          title={"to"}
+          subject={"subject"}
+          description={"message"}
+          time="1pm"
+        />
+        <EmailRow
+          title={"to"}
+          subject={"subject"}
+          description={"message"}
+          time="1pm"
+        />
+        <EmailRow
+          title={"to"}
+          subject={"subject"}
+          description={"message"}
+          time="1pm"
+        />
+        <EmailRow
+          title={"to"}
+          subject={"subject"}
+          description={"message"}
+          time="1pm"
+        />
+        <EmailRow
+          title={"to"}
+          subject={"subject"}
+          description={"message"}
+          time="1pm"
+        />
+        <EmailRow
+          title={"to"}
+          subject={"subject"}
+          description={"message"}
+          time="1pm"
+        />
+        <EmailRow
+          title={"to"}
+          subject={"subject"}
+          description={"message"}
+          time="1pm"
+        />
+        <EmailRow
+          title={"to"}
+          subject={"subject"}
+          description={"message"}
+          time="1pm"
+        />
+        <EmailRow
+          title={"to"}
+          subject={"subject"}
+          description={"message"}
+          time="1pm"
+        />
+        <EmailRow
+          title={"to"}
+          subject={"subject"}
+          description={"message"}
+          time="1pm"
         />
       </div>
     </div>
