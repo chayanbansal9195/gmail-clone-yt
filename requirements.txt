@@ -1,0 +1,5 @@
+1. develope
+2. firebase firestore db
+3. deploy firebase 
+
+deploy link: https://gamil-clone-yt-686b3.web.app/
